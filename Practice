@@ -1,0 +1,223 @@
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    def calculate_average(self):
+        current = self.head
+        total = 0
+        count = 0
+        while current:
+            total += current.data
+            count += 1
+            current = current.next
+        return total / count
+
+# Example Usage
+llist = LinkedList()
+llist.append(1)
+llist.append(2)
+llist.append(3)
+average = llist.calculate_average()
+print("Average of numbers in the linked list:", average)
+
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+            new_node.prev = current
+
+    def prepend(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+
+    def delete(self, data):
+        current = self.head
+        while current:
+            if current.data == data:
+                if current.prev:
+                    current.prev.next = current.next
+                if current.next:
+                    current.next.prev = current.prev
+                if current == self.head:
+                    self.head = current.next
+            current = current.next
+
+    def display(self):
+        elements = []
+        current = self.head
+        while current:
+            elements.append(current.data)
+            current = current.next
+        return elements
+
+def reverse_linked_list(head):
+    prev = None
+    current = head
+
+    while current is not None:
+        next_node = current.next
+        current.next = prev
+        prev = current
+        current = next_node
+
+    head = prev
+    return head
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def merge_sorted_lists(a, b):
+    dummy = ListNode(0)
+    current = dummy
+
+    while a and b:
+        if a.val < b.val:
+            current.next = a
+            a = a.next
+        else:
+            current.next = b
+            b = b.next
+        current = current.next
+
+    current.next = a or b
+
+    return dummy.next
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def rearrange_linked_list(head, x):
+    smaller_head = smaller_tail = Node(0)
+    greater_head = greater_tail = Node(0)
+    
+    while head:
+        if head.data < x:
+            smaller_tail.next = head
+            smaller_tail = smaller_tail.next
+        else:
+            greater_tail.next = head
+            greater_tail = greater_tail.next
+        head = head.next
+    
+    greater_tail.next = None
+    smaller_tail.next = greater_head.next
+    
+    return smaller_head.next
+
+def pivot_around_value(lst, value):
+    return [x for x in lst if x < value] + [x for x in lst if x == value] + [x for x in lst if x > value]
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    pivot = 5
+    my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
+    if pivot in my_list:
+        second_half = my_list[len(my_list)//2:]
+    
+    return str(second_half)
+
+if __name__ == '__main__':
+    app.run()
+
+class CircularArray:
+    def __init__(self, size):
+        self.size = size
+        self.array = [None] * size
+        self.head = 0
+
+    def __getitem__(self, index):
+        return self.array[(self.head + index) % self.size]
+
+    def __setitem__(self, index, value):
+        self.array[(self.head + index) % self.size] = value
+
+    def rotate(self, steps):
+        self.head = (self.head + steps) % self.size
+
+def rotate_list(lst, n):
+    n = n % len(lst)
+    return lst[-n:] + lst[:-n]
+
+# Example Usage
+my_list = [1, 2, 3, 4, 5]
+rotated_list = rotate_list(my_list, 2)
+print(rotated_list)
+
+def rotate_list_left(lst, n):
+    n = n % len(lst)
+    return lst[n:] + lst[:n]
+
+# Test the function
+my_list = [1, 2, 3, 4, 5]
+rotation = -2
+rotated_list = rotate_list_left(my_list, rotation)
+print(rotated_list)
+
+let circ = new CircularArray()
+circ.addItem('harry')
+circ.addItem('hermione')
+circ.addItem('ginny')
+circ.addItem('ron')
+
+circ.rotate(-17)
+circ.getByIndex(1)  // harry
+
+let circ = new CircularArray()
+circ.addItem('harry')
+circ.addItem('hermione')
+circ.addItem('ginny')
+circ.addItem('ron')
+
+circ.rotate(-2)
+circ.addItem('dobby')
+
+circ.printArray()
+// ginny
+// ron
+// harry
+// hermione
+// dobby
